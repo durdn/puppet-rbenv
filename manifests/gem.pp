@@ -4,10 +4,11 @@
 define rbenv::gem(
   $user,
   $ruby,
-  $gem    = $title,
-  $home   = '',
-  $root   = '',
-  $ensure = present
+  $install_params = '',
+  $gem     = $title,
+  $home    = '',
+  $root    = '',
+  $ensure  = present
 ) {
 
   # Workaround http://projects.puppetlabs.com/issues/9848
@@ -19,11 +20,12 @@ define rbenv::gem(
   }
 
   rbenvgem {"${user}/${ruby}/${gem}/${ensure}":
-    ensure  => $ensure,
-    user    => $user,
-    gemname => $gem,
-    ruby    => $ruby,
-    rbenv   => "${root_path}/versions/${ruby}",
-    require => Exec["rbenv::compile ${user} ${ruby}"],
+    ensure         => $ensure,
+    user           => $user,
+    install_params => $install_params,
+    gemname        => $gem,
+    ruby           => $ruby,
+    rbenv          => "${root_path}/versions/${ruby}",
+    require        => Exec["rbenv::compile ${user} ${ruby}"],
   }
 }

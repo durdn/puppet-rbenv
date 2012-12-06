@@ -59,4 +59,7 @@ Puppet::Type.newtype(:rbenvgem) do
     desc 'The rbenv owner'
   end
 
+  newparam(:install_params) do
+    desc 'Extra installation parameters to be fed to `gem install`'
+  end
 end
